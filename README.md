@@ -48,3 +48,16 @@ As instruções a seguir ainda podem estar incompletas.
 A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados:
 
 - `/admin`;
+
+## Como criar um model?
+
+1. Vá até `app/models.py` e modele a nova classe;
+2. Execute `python manage.py makemigrations app` para criar a migration com o novo model;
+3. Se quiser ver o SQL da migration, execute `python manage.py sqlmigrate app <numero_da_migration>`;
+4. Execute `python manage.py migrate` para aplicar as modificações das migrations ao banco de dados;
+
+### Observações
+
+- Os números das migrations são os prefixos numéricos dos arquivos dentro da pasta `app/migrations`;
+- Se estiver usando o Vagrant, lembre-se de executar os comandos `python` dentro da máquina virtual;
+- Ao usar SQLite, o arquivo `db.sqlite3` é criado no passo 1, caso ainda não exista;
