@@ -90,14 +90,14 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 3. Siga a estrutura `from <módulo> import <função>` para importar bibliotecas extras, caso necessário;
 
 4. Siga a estrutura abaixo para criar os dados do registro;
-```shell
+```
 <var> = <Model>(<atributo_x>='<valor_x>', <atributo_y>='<valor_y>')
 ```
 
 5. Execute `<var>.save()` para salvar o novo registro no banco de dados;
 
 6. Siga a estrutura abaixo para visualizar o novo registro;
-```shell
+```
 item = <Model>.objects.get(<atributo>='<valor>')
 for k, v in item.__dict__.items(): print(f"{k}: {v}")
 ```
