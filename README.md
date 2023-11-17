@@ -87,22 +87,20 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 
 2. Execute `from app.models import <Model>`;
 
-3. Execute `from <módulo> import <função>` para importar bibliotecas extras, caso necessário;
+3. Siga a estrutura `from <módulo> import <função>` para importar bibliotecas extras, caso necessário;
 
-4. Execute
+4. Siga a estrutura abaixo para criar os dados do registro;
 ```shell
 <var> = <Model>(<atributo_x>='<valor_x>', <atributo_y>='<valor_y>')
 ```
-para criar uma variável com os dados do registro;
 
 5. Execute `<var>.save()` para salvar o novo registro no banco de dados;
 
-6. Execute
+6. Siga a estrutura abaixo para visualizar o novo registro;
 ```shell
 item = <Model>.objects.get(<atributo>='<valor>')
 for k, v in item.__dict__.items(): print(f"{k}: {v}")
 ```
-para visualizar o novo registro;
 
 Pressione `Ctrl+D` ou chame a função `exit()` para sair do shell.
 
