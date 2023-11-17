@@ -93,7 +93,6 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 ```
 <var> = <Model>(<atributo_x>='<valor_x>', <atributo_y>='<valor_y>')
 ```
-
 5. Execute `<var>.save()` para salvar o novo registro no banco de dados;
 
 6. Siga a estrutura abaixo para visualizar o novo registro;
