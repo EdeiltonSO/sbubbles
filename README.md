@@ -77,16 +77,24 @@ Pressione `Ctrl+D` para sair do shell.
 
 ### Exemplo: criando um usuário
 
-`$ python manage.py shell`
-
-`> from app.models import User`
-
-`> from django.contrib.auth.hashers import make_password`
-
-`> from datetime import date`
-
+```shell
+python manage.py shell
 ```
-> usuario = User(
+
+```python
+from app.models import User
+```
+
+```python
+from django.contrib.auth.hashers import make_password
+```
+
+```python
+from datetime import date
+```
+
+```python
+usuario = User(
     email='johndoe@example.com',
     password=make_password('johndoe123'),
     username='johndoeatvoid',
@@ -96,10 +104,18 @@ Pressione `Ctrl+D` para sair do shell.
 )
 ```
 
-`> usuario.save()`
+```python
+usuario.save()
+```
 
-`> u = User.objects.get(email='johndoe@example.com')`
+```python
+u = User.objects.get(email='johndoe@example.com')
+```
 
-`> for k, v in u.__dict__.items(): print(f"{k}: {v}")`
+```python
+for k, v in u.__dict__.items(): print(f"{k}: {v}")
+```
 
-`> exit()`
+```python
+exit()
+```
