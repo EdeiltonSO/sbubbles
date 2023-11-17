@@ -61,3 +61,45 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 - Os números das migrations são os prefixos numéricos dos arquivos dentro da pasta `app/migrations`;
 - Se estiver usando o Vagrant, lembre-se de executar os comandos `python` dentro da máquina virtual;
 - Ao usar SQLite, o arquivo `db.sqlite3` é criado no passo 1, caso ainda não exista;
+
+## Como criar um novo registro no banco de dados via shell?
+
+### Passo a passo
+
+1. Acesse o shell executando `python manage.py shell`;
+2. Execute `from app.models import <Model>`;
+3. Execute `from <módulo> import <função>` para importar bibliotecas extras, caso necessário;
+4. Execute `<var> = <Model>(<atributo_x>='<valor_x>', <atributo_y>='<valor_y>')` para criar uma variável com os dados do registro;
+5. Execute `<var>.save()` para salvar o novo registro no banco de dados;
+6. Execute `item = <Model>.objects.get(<atributo>='<valor>')` e `for k, v in item.__dict__.items(): print(f"{k}: {v}")` para visualizar o novo registro;
+
+Pressione `Ctrl+D` para sair do shell.
+
+### Exemplo: criando um usuário
+
+`$ python manage.py shell`
+
+`> from app.models import User`
+
+`> from django.contrib.auth.hashers import make_password`
+
+`> from datetime import date`
+
+```
+> usuario = User(
+    email='johndoe@example.com',
+    password=make_password('johndoe123'),
+    username='johndoeatvoid',
+    usertitle='John Doe',
+    bio='My name is Doe. John Doe.',
+    birthdate=date(1999, 12, 31)
+)
+```
+
+`> usuario.save()`
+
+`> u = User.objects.get(email='johndoe@example.com')`
+
+`> for k, v in u.__dict__.items(): print(f"{k}: {v}")`
+
+`> exit()`
