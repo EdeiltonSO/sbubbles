@@ -10,6 +10,7 @@ class User(models.Model):
     bio = models.CharField(max_length=128, null=True)
     birthdate = models.DateField("Data de nascimento")
     created_at = models.DateTimeField(auto_now_add=True)
+    suspended_at = models.DateTimeField(null=True)
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
