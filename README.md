@@ -91,10 +91,10 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 
 4. Siga a estrutura abaixo para criar os dados do registro;
 ```
-<var> = <Model>(<atributo_x>='<valor_x>', <atributo_y>='<valor_y>')
+new_data = <Model>(<campo_x>='<valor_x>', <campo_y>='<valor_y>')
 ```
 
-5. Execute `<var>.save()` para salvar o novo registro no banco de dados;
+5. Execute `new_data.save()` para salvar o novo registro no banco de dados;
 
 6. Siga a estrutura abaixo para visualizar o novo registro;
 ```
