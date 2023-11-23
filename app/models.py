@@ -1,16 +1,17 @@
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    email = models.EmailField(max_length=64, unique=True, null=False)
-    password = models.CharField(max_length=128, null=False)  # recebe senha criptografada
-    username = models.CharField(max_length=24, unique=True, null=False)
-    usertitle = models.CharField(max_length=32, null=False)
-    bio = models.CharField(max_length=128, null=True)
-    birthdate = models.DateField("Data de nascimento")
-    created_at = models.DateTimeField(auto_now_add=True)
-    suspended_at = models.DateTimeField(null=True)
+# class User(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     email = models.EmailField(max_length=64, unique=True, null=False)
+#     password = models.CharField(max_length=128, null=False)  # recebe senha criptografada
+#     username = models.CharField(max_length=24, unique=True, null=False)
+#     usertitle = models.CharField(max_length=32, null=False)
+#     bio = models.CharField(max_length=128, null=True)
+#     birthdate = models.DateField("Data de nascimento")
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     suspended_at = models.DateTimeField(null=True)
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -49,7 +50,7 @@ class Report(models.Model):
     reported_post_id = models.ForeignKey(Post, on_delete=models.CASCADE, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-class News(models.Model):
+class Notification(models.Model):
     ACTION_CHOICES = (("L", "Like"), ("R", "Repost"), ("P", "Post"))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sender_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name='sender')
