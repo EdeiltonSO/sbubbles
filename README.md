@@ -111,7 +111,7 @@ python manage.py shell
 ```
 
 ```python
-from app.models import User
+from app.models import CustomUser
 ```
 
 ```python
@@ -123,7 +123,7 @@ from datetime import date
 ```
 
 ```python
-usuario = User(
+usuario = CustomUser(
     email='johndoe@example.com',
     password=make_password('johndoe123'),
     username='johndoeatvoid',
@@ -138,7 +138,7 @@ usuario.save()
 ```
 
 ```python
-u = User.objects.get(email='johndoe@example.com')
+u = CustomUser.objects.get(username='johndoeatvoid')
 ```
 
 ```python
