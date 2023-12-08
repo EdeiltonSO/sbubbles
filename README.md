@@ -12,7 +12,7 @@
 
 [5. Como criar um novo registro via shell?](#criar-registro)
 
-[6. Como criar um superuser?](#criar-superuser)
+[6. Como acessar as tabelas pelo Django Admin?](#acessar-tabelas)
 
 <a id="o-que-e-isso"></a>
 ## 1. O que é isso?
@@ -156,7 +156,7 @@ exit()
 
 Para ter acesso às tabelas, é preciso ter uma conta de usuário administrador (superuser). Esse tipo de usuário tem acesso ao painel administrativo da aplicação e pode manipular diretamente o banco de dados.
 
-## acessando as tabelas pelo django admin
+### 6.1. Acessando as tabelas pelo Django Admin
 
 1. Execute `python manage.py createsuperuser` para criar uma conta superuser;
 2. Execute `python manage.py runserver 0:8000` para iniciar o servidor;
