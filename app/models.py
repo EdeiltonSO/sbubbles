@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    usertitle = models.CharField(max_length=32, null=False)
     bio = models.CharField(max_length=128, null=True)
     birthdate = models.DateField("Data de nascimento", null=True)
     created_at = models.DateTimeField(auto_now_add=True)

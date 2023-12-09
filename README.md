@@ -12,6 +12,8 @@
 
 [5. Como criar um novo registro via shell?](#criar-registro)
 
+[6. Como acessar as tabelas pelo Django Admin?](#acessar-tabelas)
+
 <a id="o-que-e-isso"></a>
 ## 1. O que é isso?
 
@@ -127,7 +129,8 @@ usuario = CustomUser(
     email='johndoe@example.com',
     password=make_password('johndoe123'),
     username='johndoeatvoid',
-    usertitle='John Doe',
+    first_name='John',
+    last_name='Doe',
     bio='My name is Doe. John Doe.',
     birthdate=date(1999, 12, 31)
 )
@@ -148,3 +151,14 @@ for k, v in u.__dict__.items(): print(f"{k}: {v}")
 ```python
 exit()
 ```
+
+<a id="acessar-tabelas"></a>
+## 6. Como acessar as tabelas pelo Django Admin?
+
+Para ter acesso às tabelas, é preciso ter uma conta de usuário administrador (superuser). Esse tipo de usuário tem acesso ao painel administrativo da aplicação e pode manipular diretamente o banco de dados.
+
+### 6.1. Acessando as tabelas pelo Django Admin
+
+1. Execute `python manage.py createsuperuser` para criar uma conta superuser;
+2. Execute `python manage.py runserver 0:8000` para iniciar o servidor;
+3. Acesse `http://192.168.56.101:8000/admin`, faça login e confira os dados.
