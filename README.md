@@ -129,7 +129,8 @@ usuario = CustomUser(
     email='johndoe@example.com',
     password=make_password('johndoe123'),
     username='johndoeatvoid',
-    usertitle='John Doe',
+    first_name='John',
+    last_name='Doe',
     bio='My name is Doe. John Doe.',
     birthdate=date(1999, 12, 31)
 )
