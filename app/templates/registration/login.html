@@ -1,0 +1,13 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+
+{% block title %}Login no Sbubbles{% endblock %}
+
+{% block content %}
+<h2>Fazer login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Entrar</button>
+</form>
+{% endblock %}
