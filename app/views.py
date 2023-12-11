@@ -1,4 +1,6 @@
-from django.http import HttpResponse
-
-def index(request):
-    return HttpResponse("Tela de login do Sbubbles")
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+    
+@login_required(login_url='login')
+def home(request):
+    return render(request, 'home.html')

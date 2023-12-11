@@ -64,7 +64,9 @@ As instruções a seguir ainda podem estar incompletas.
 
 A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados:
 
-- `/admin`;
+- `/`, para a página principal;
+- `/login`, para a tela de login;
+- `/admin`, para o painel administrativo;
 
 <a id="criar-model"></a>
 ## 4. Como criar um model?
