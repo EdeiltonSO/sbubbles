@@ -64,8 +64,20 @@ As instruções a seguir ainda podem estar incompletas.
 
 A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados:
 
-- `/`, para a página principal;
+### Fluxo principal
+
 - `/login`, para a tela de login;
+- `/`, para a página principal;
+
+### Fluxo de alteração de senha
+
+- `/password_reset`, para o formulário de redefinição de senha;
+- `/password_reset/done`, para a mensagem de confirmação de envio de e-mail;
+- `/reset/<uidb64>/<token>`, como destino do link para redefinição enviado via e-mail;
+- `/reset/done`, para a mensagem de confirmação de alteração de senha;
+
+### Painel administrativo
+
 - `/admin`, para o painel administrativo;
 
 <a id="criar-model"></a>
