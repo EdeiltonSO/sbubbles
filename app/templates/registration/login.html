@@ -1,7 +1,7 @@
 <!-- templates/registration/login.html -->
 {% extends "base.html" %}
 
-{% block title %}Login no Sbubbles{% endblock %}
+{% block title %}Sbubbles | Login{% endblock %}
 
 {% block content %}
 <h2>Fazer login</h2>
@@ -9,5 +9,7 @@
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Entrar</button>
+  <p><a href="{% url 'signup' %}">Criar conta</a></p>
+  <p><a href="{% url 'password_reset' %}">Esqueci minha senha</a></p>
 </form>
 {% endblock %}
