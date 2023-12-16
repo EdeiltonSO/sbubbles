@@ -19,8 +19,34 @@
     <div style="border:1px solid #000; margin-top: 10px;">
       <i>{{ post.author.username }}:</i>
       <p>{{ post.content }}</p>
-      <span>{% load humanize %}{{ post.created_at|naturaltime }}</span>
-      <a href="{% url 'delete_post' post_id=post.id %}">apagar</a>
+      <p>{{ post.likes }} curtida{{ post.likes|pluralize }}</p>
+      <p>{% load humanize %}{{ post.created_at|naturaltime }}</p>
+
+      <!-- DAR LIKE -->
+      {% if post.liked_by_authenticated_user %}
+        <a href="{% url 'like' post_id=post.id %}">descurtir</a>
+      {% else %}
+        <a href="{% url 'like' post_id=post.id %}">curtir</a>
+      {% endif %}
+
+      <!-- REPOSTAR -->
+      {% if post.reposted_by_authenticated_user %}
+        <a href="{% url 'repost' post_id=post.id %}">desfazer repost</a>
+      {% else %}
+        <a href="{% url 'repost' post_id=post.id %}">repostar</a>
+      {% endif %}
+
+      <!-- SALVAR POST -->
+      {% if post.saved_by_authenticated_user %}
+        <a href="{% url 'save' post_id=post.id %}">remover dos salvos</a>
+      {% else %}
+        <a href="{% url 'save' post_id=post.id %}">salvar</a>
+      {% endif %}
+
+      <!-- APAGAR O PRÓPRIO POST -->
+      {% if user == post.author %}
+        <a href="{% url 'delete_post' post_id=post.id %}">apagar</a>
+      {% endif %}
     </div>
   {% endfor %}
 
