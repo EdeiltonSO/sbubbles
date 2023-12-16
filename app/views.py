@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import generic
 from app.forms import CustomUserCreationForm
-from app.models import Post, Like, Repost, Save
+from app.models import Post, Like, Repost, Save, Report
 
 @login_required(login_url='login')
 def home(request):
@@ -27,6 +27,11 @@ def home(request):
                 post.saved_by_authenticated_user = True
             except Save.DoesNotExist:
                 post.saved_by_authenticated_user = False
+            try:
+                report = Report.objects.get(whistleblower = request.user, reported_post = post)
+                post.reported_by_authenticated_user = True
+            except Report.DoesNotExist:
+                post.reported_by_authenticated_user = False
 
     context = {'posts': posts}
     return render(request, 'home.html', context)
@@ -37,7 +42,7 @@ class SignUpView(generic.CreateView):
     template_name = "registration/signup.html"
 
 @login_required(login_url='login')
-def create_post(request):
+def create(request):
     if request.method == 'POST':
         content = request.POST.get('content')
 
@@ -48,7 +53,7 @@ def create_post(request):
     return redirect('home')
 
 @login_required(login_url='login')
-def delete_post(request, post_id):
+def delete(request, post_id):
     post = get_object_or_404(Post, id = post_id)
     if request.user == post.author:
         post.delete()
@@ -98,4 +103,21 @@ def save(request, post_id):
             post = post,
         )
     
+    return redirect('home')
+
+@login_required(login_url='login')
+def report(request, post_id):
+    post = get_object_or_404(Post, id = post_id)
+    try:
+        report = Report.objects.get(whistleblower = request.user, reported_post = post)
+        post.reports -= 1
+        report.delete()
+    except Report.DoesNotExist:
+        Report.objects.create(
+            whistleblower = request.user,
+            reported_post = post,
+        )
+        post.reports += 1
+    
+    post.save()
     return redirect('home')

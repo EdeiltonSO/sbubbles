@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth.views import LoginView
-from app.views import home, SignUpView, create_post, delete_post, like, repost, save
+from app.views import home, SignUpView, create, delete, like, repost, save, report
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,10 +11,11 @@ urlpatterns = [
     ])),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('', home, name='home'),
-    path('post/create', create_post, name='create_post'),
-    path('post/<post_id>/delete', delete_post, name='delete_post'),
 
+    path('post/create', create, name='create'),
+    path('post/<post_id>/delete', delete, name='delete'),
     path('post/<post_id>/like', like, name='like'),
     path('post/<post_id>/repost', repost, name='repost'),
     path('post/<post_id>/save', save, name='save'),
+    path('post/<post_id>/report', report, name='report'),
 ]

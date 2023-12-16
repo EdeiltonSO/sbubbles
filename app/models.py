@@ -15,6 +15,7 @@ class Post(models.Model):
     content = models.CharField(max_length=140, null=False)
     replies_to = models.UUIDField(null=True)
     likes = models.IntegerField(default=0)
+    reports = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Like(models.Model):
