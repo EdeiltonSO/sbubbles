@@ -3,6 +3,8 @@ from django.urls import include, path
 from django.contrib.auth.views import LoginView
 from app.views import home
 from app.views import SignUpView
+from app.views import create_post
+from app.views import delete_post
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,4 +14,6 @@ urlpatterns = [
     ])),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('', home, name='home'),
+    path('create_post/', create_post, name='create_post'),
+    path('delete_post/<post_id>/', delete_post, name='delete_post'),
 ]
