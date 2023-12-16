@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import generic
 from app.forms import CustomUserCreationForm
-from app.models import Post, Like, Repost, Save, Report
+from app.models import Post, Like, Repost, Save, Report, CustomUser
+from itertools import chain
 
 @login_required(login_url='login')
 def home(request):
@@ -121,3 +122,33 @@ def report(request, post_id):
     
     post.save()
     return redirect('home')
+
+def profile(request, username):
+    print(request.user)
+    user = get_object_or_404(CustomUser, username = username)
+    try:
+        posts = Post.objects.filter(author = user)
+    except Post.DoesNotExist:
+        posts = []
+
+    try:
+        reposts = Repost.objects.filter(author = user)
+    except Post.DoesNotExist:
+        reposts = []
+    
+    reposted_posts = []
+    for r in reposts:
+        reposted_post = Post.objects.get(id = r.post.id)
+        reposted_posts.append(reposted_post)
+
+    all_posts = sorted(
+        chain(posts, reposted_posts),
+        key=lambda item: item.created_at,
+        reverse=True
+    )
+
+    context = {'user': user, 'all_posts': all_posts}
+
+    # VERIFICAR NESSA ROTA SE O USUÁRIO TA AUTENTICADO
+    # E SE TIVER, MANDAR PRA TEMPLATE FULLPROFILE
+    return render(request, 'publicprofile.html', context)

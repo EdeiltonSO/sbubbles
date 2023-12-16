@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil de {{ user.username }} no Sbubbles{% endblock %}
+
+{% block content %}
+  Perfil de {{ user.username }}
+  {% for p in all_posts %}
+    {% include 'publicpost.html' %} 
+  {% endfor %}
+{% endblock %}

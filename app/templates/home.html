@@ -3,14 +3,16 @@
 {% block title %}Timeline | Sbubbles{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Timeline do usuário {{ user.username }}
+{% if user.is_authenticated %} 
+  <h1>
+    Oi, <a href="{% url 'profile' username=user.username %}">{{ user.username }}</a>!
+  </h1>
   <p><a href="{% url 'logout' %}">Sair</a></p>
 
   {% include 'newpostform.html' %} 
 
   {% for p in posts %}
-    {% include 'post.html' %} 
+    {% include 'fullpost.html' %} 
   {% endfor %}
 
 {% else %}
