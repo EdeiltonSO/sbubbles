@@ -1,0 +1,52 @@
+<div style="border:1px solid #000; margin-top: 10px;">
+  {% if p.reported_by_authenticated_user %}
+    <p>[post denunciado]</p>
+  {% else %} <!-- DENÚNCIA -->
+    <i>{{ p.author.username }}:</i>
+    <p>{{ p.content }}</p>
+    <p>{{ p.likes }} curtida{{ p.likes|pluralize }}</p>
+    <p>{% load humanize %}{{ p.created_at|naturaltime }}</p>
+
+    <!-- DAR LIKE -->
+    {% if p.liked_by_authenticated_user %}
+      <a href="{% url 'like' post_id=p.id %}">descurtir</a>
+    {% else %}
+      <a href="{% url 'like' post_id=p.id %}">curtir</a>
+    {% endif %}
+
+    <span> | </span>
+
+    <!-- REPOSTAR -->
+    {% if p.reposted_by_authenticated_user %}
+      <a href="{% url 'repost' post_id=p.id %}">desfazer repost</a>
+    {% else %}
+      <a href="{% url 'repost' post_id=p.id %}">repostar</a>
+    {% endif %}
+
+    <span> | </span>
+
+    <!-- SALVAR POST -->
+    {% if p.saved_by_authenticated_user %}
+      <a href="{% url 'save' post_id=p.id %}">remover dos salvos</a>
+    {% else %}
+      <a href="{% url 'save' post_id=p.id %}">salvar</a>
+    {% endif %}
+
+    <span> | </span>
+    
+    <!-- APAGAR O PRÓPRIO POST -->
+    {% if user == p.author %}
+      <a href="{% url 'delete' post_id=p.id %}">apagar</a>
+    {% endif %}
+
+  {% endif %} <!-- DENÚNCIA -->
+
+  <!-- DENUNCIAR POST ALHEIO -->
+  {% if user != p.author %}
+    {% if p.reported_by_authenticated_user %}
+      <a href="{% url 'report' post_id=p.id %}">remover denúncia</a>
+    {% else %}
+      <a href="{% url 'report' post_id=p.id %}">denunciar</a>
+    {% endif %}
+  {% endif %}
+</div>

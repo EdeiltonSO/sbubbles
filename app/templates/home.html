@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load humanize %}
-
 {% block title %}Timeline | Sbubbles{% endblock %}
 
 {% block content %}
@@ -9,65 +7,10 @@
   Timeline do usuário {{ user.username }}
   <p><a href="{% url 'logout' %}">Sair</a></p>
 
-  <form method="post" action="{% url 'create' %}" style="display: flex; align-items: flex-start; gap: 10px;">
-    {% csrf_token %}
-    <textarea maxlength="100" name="content" placeholder="bom dia patrao"></textarea>
-    <button type="submit">Postar</button>
-  </form>
+  {% include 'newpostform.html' %} 
 
-  {% for post in posts %}
-    <div style="border:1px solid #000; margin-top: 10px;">
-      {% if post.reported_by_authenticated_user %}
-        <p>[post denunciado]</p>
-      {% else %} <!-- DENÚNCIA -->
-        <i>{{ post.author.username }}:</i>
-        <p>{{ post.content }}</p>
-        <p>{{ post.likes }} curtida{{ post.likes|pluralize }}</p>
-        <p>{% load humanize %}{{ post.created_at|naturaltime }}</p>
-
-        <!-- DAR LIKE -->
-        {% if post.liked_by_authenticated_user %}
-          <a href="{% url 'like' post_id=post.id %}">descurtir</a>
-        {% else %}
-          <a href="{% url 'like' post_id=post.id %}">curtir</a>
-        {% endif %}
-
-        <span> | </span>
-
-        <!-- REPOSTAR -->
-        {% if post.reposted_by_authenticated_user %}
-          <a href="{% url 'repost' post_id=post.id %}">desfazer repost</a>
-        {% else %}
-          <a href="{% url 'repost' post_id=post.id %}">repostar</a>
-        {% endif %}
-
-        <span> | </span>
-
-        <!-- SALVAR POST -->
-        {% if post.saved_by_authenticated_user %}
-          <a href="{% url 'save' post_id=post.id %}">remover dos salvos</a>
-        {% else %}
-          <a href="{% url 'save' post_id=post.id %}">salvar</a>
-        {% endif %}
-
-        <span> | </span>
-        
-        <!-- APAGAR O PRÓPRIO POST -->
-        {% if user == post.author %}
-          <a href="{% url 'delete' post_id=post.id %}">apagar</a>
-        {% endif %}
-
-      {% endif %} <!-- DENÚNCIA -->
-
-      <!-- DENUNCIAR POST ALHEIO -->
-      {% if user != post.author %}
-        {% if post.reported_by_authenticated_user %}
-          <a href="{% url 'report' post_id=post.id %}">remover denúncia</a>
-        {% else %}
-          <a href="{% url 'report' post_id=post.id %}">denunciar</a>
-        {% endif %}
-      {% endif %}
-    </div>
+  {% for p in posts %}
+    {% include 'post.html' %} 
   {% endfor %}
 
 {% else %}
