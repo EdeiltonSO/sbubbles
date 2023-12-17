@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth.views import LoginView
-from app.views import home, SignUpView, create, delete, like, repost, save, report, profile, follow, likes, collection, notifications, mark_as_checked
+from app.views import home, SignUpView, create, delete, like, repost, save, report, profile, follow, likes, collection, notifications, mark_as_checked, update
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,6 +23,7 @@ urlpatterns = [
     path('user/<username>/follow', follow, name='follow'),
     path('user/<username>/likes', likes, name='likes'),
     path('collection', collection, name='collection'),
+    path('editprofile', update, name='update'),
 
     path('notifications', notifications, name='notifications'),
     path('notifications/<notif_id>/mark_as_checked', mark_as_checked, name='mark_as_checked'),

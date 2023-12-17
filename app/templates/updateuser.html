@@ -1,0 +1,8 @@
+<p><a href="{% url 'profile' username=user.username %}">Voltar para o perfil</a></p>
+<h2>Editar perfil no Sbubbles</h2>
+<form method="post" action="{% url 'update' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+</form>
+<p>Após confirmar as mudanças, faça login novamente</p>

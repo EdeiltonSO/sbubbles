@@ -13,7 +13,7 @@
   <span>{{ user.followers }} seguid{{ user.followers|pluralize:"or,ores" }}</span>
   <span> | </span>
   {% if request.user == user %}
-    <a href="#">Editar perfil</a>
+    <a href="{% url 'update' %}">Editar perfil</a>
   {% else %}
     {% if follow %}
       <a href="{% url 'follow' username=user.username %}">Deixar de seguir</a>

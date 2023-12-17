@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.http import Http404
-from app.forms import CustomUserCreationForm
+from app.forms import CustomUserCreationForm, CustomUserUpdateForm
 from app.models import Post, Like, Repost, Save, Report, CustomUser, Follow, Notification
 from itertools import chain
 
@@ -355,3 +355,15 @@ def mark_as_checked(request, notif_id):
     
     notifications = Notification.objects.filter(post_owner = request.user).order_by('-created_at')
     return render(request, 'notifications.html', { 'notifications': notifications })
+
+@login_required(login_url='login')
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CustomUserUpdateForm(instance=request.user)
+
+    return render(request, 'updateuser.html', {'form': form})

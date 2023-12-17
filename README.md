@@ -92,12 +92,13 @@ Observações:
 - A rota de visualização de posts é a rota raiz;
 - Todas as rotas acima dependem da autenticação do usuário.
 
-### 3.4. Perfis de usuário 
+### 3.4. Usuário 
 
 - `user/<username>`, para visualizar o perfil de um usuário;
 - `user/<username>/follow`, para seguir um usuário;
 - `user/<username>/likes`, para visualizar as curtidas de um usuário;
-- `user/saved`, para visualizar os próprios posts salvos.
+- `user/saved`, para visualizar os próprios posts salvos;
+- `editprofile`, para editar o perfil do usuário logado.
 
 Observações:
 
