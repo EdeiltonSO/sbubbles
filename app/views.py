@@ -256,10 +256,83 @@ def follow(request, username):
     return redirect('profile', username = user.username)
     
 @login_required(login_url='login')
-def likes(request, user):
-    print(user)
+def likes(request, username):
+    posts = []
+    user = CustomUser.objects.get(username = username)
+    likes = Like.objects.filter(author = user).order_by('-created_at')
+
+    # código replicado a partir daqui
+    for like in likes:
+        posts.append(like.post)
+
+    for post in posts:
+        try:
+            like = Like.objects.get(author = request.user, post = post)
+            post.liked_by_authenticated_user = True
+        except Like.DoesNotExist:
+            post.liked_by_authenticated_user = False
+        try:
+            repost = Repost.objects.get(author = request.user, post = post)
+            post.reposted_by_authenticated_user = True
+        except Repost.DoesNotExist:
+            post.reposted_by_authenticated_user = False
+        try:
+            save = Save.objects.get(author = request.user, post = post)
+            post.saved_by_authenticated_user = True
+        except Save.DoesNotExist:
+            post.saved_by_authenticated_user = False
+        try:
+            report = Report.objects.get(whistleblower = request.user, reported_post = post)
+            post.reported_by_authenticated_user = True
+        except Report.DoesNotExist:
+            post.reported_by_authenticated_user = False
+
+    follow = None
+    try:
+        follow = Follow.objects.filter(follower = request.user, followed = user)
+    except Follow.DoesNotExist:
+        follow = None
+    # código replicado até daqui
+
+    context = {
+        'user': user,
+        'follow': follow,
+        'posts': posts
+    }
+
+    return render(request, 'likes.html', context)
 
 @login_required(login_url='login')
-def saved(request, user):
-    if request.user.is_authenticated:
-        print(user)
+def collection(request):
+    posts = []
+    saved = Save.objects.filter(author = request.user).order_by('-created_at')
+
+    # código replicado a partir daqui
+    for save in saved:
+        posts.append(save.post)
+
+    for post in posts:
+        try:
+            like = Like.objects.get(author = request.user, post = post)
+            post.liked_by_authenticated_user = True
+        except Like.DoesNotExist:
+            post.liked_by_authenticated_user = False
+        try:
+            repost = Repost.objects.get(author = request.user, post = post)
+            post.reposted_by_authenticated_user = True
+        except Repost.DoesNotExist:
+            post.reposted_by_authenticated_user = False
+        try:
+            save = Save.objects.get(author = request.user, post = post)
+            post.saved_by_authenticated_user = True
+        except Save.DoesNotExist:
+            post.saved_by_authenticated_user = False
+        try:
+            report = Report.objects.get(whistleblower = request.user, reported_post = post)
+            post.reported_by_authenticated_user = True
+        except Report.DoesNotExist:
+            post.reported_by_authenticated_user = False
+    # código replicado até daqui
+
+    return render(request, 'collection.html', { 'posts': posts })
+

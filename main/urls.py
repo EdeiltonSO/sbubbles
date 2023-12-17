@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth.views import LoginView
-from app.views import home, SignUpView, create, delete, like, repost, save, report, profile, follow, likes, saved
+from app.views import home, SignUpView, create, delete, like, repost, save, report, profile, follow, likes, collection
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,5 +22,5 @@ urlpatterns = [
     path('user/<username>', profile, name='profile'),
     path('user/<username>/follow', follow, name='follow'),
     path('user/<username>/likes', likes, name='likes'),
-    path('user/saved', saved, name='saved'),
+    path('collection', collection, name='collection'),
 ]

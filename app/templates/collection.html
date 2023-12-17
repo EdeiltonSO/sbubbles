@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Perfil de {{ user.username }} no Sbubbles{% endblock %}
+{% block title %}Meus posts salvos no Sbubbles{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
@@ -8,7 +8,7 @@
 
   {% include 'headerprofile.html' %} 
 
-  {% for p in all_posts %}
+  {% for p in posts %}
     {% include 'fullpost.html' %} 
   {% endfor %}
 

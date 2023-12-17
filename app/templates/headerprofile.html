@@ -1,0 +1,36 @@
+{% if user.first_name or user.last_name %}    
+  <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+{% endif %}
+<h2>@{{ user.username }}</h2>
+
+{% if user.bio %}
+  <p>{{ user.bio }}</p>
+{% endif %}
+
+<p>
+  <span>{{ user.following }} seguindo</span>
+  <span> | </span>
+  <span>{{ user.followers }} seguid{{ user.followers|pluralize:"or,ores" }}</span>
+  <span> | </span>
+  {% if request.user == user %}
+    <a href="#">Editar perfil</a>
+  {% else %}
+    {% if follow %}
+      <a href="{% url 'follow' username=user.username %}">Deixar de seguir</a>
+    {% else %}
+      <a href="{% url 'follow' username=user.username %}">Seguir</a>
+    {% endif %}
+  {% endif %}
+</p>
+
+<p>
+  <a href="{% url 'home' %}">Página inicial</a>
+  <span> | </span>
+  <a href="{% url 'profile' username=user.username %}">Perfil</a>
+  <span> | </span>
+  <a href="{% url 'likes' username=user.username %}">Curtidas</a>
+  {% if request.user == user %}
+    <span> | </span>
+    <a href="{% url 'collection' %}">Coleção</a>
+  {% endif %}
+<p>

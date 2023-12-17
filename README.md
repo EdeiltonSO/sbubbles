@@ -84,7 +84,8 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 - `/post/<post_id>/like`, para curtir um post;
 - `/post/<post_id>/repost`, para republicar um post;
 - `/post/<post_id>/save`, para salvar um post;
-- `/post/<post_id>/report`, para denunciar um post.
+- `/post/<post_id>/report`, para denunciar um post;
+- `/collection`, para visualizar os próprios posts salvos.
 
 Observações:
 
