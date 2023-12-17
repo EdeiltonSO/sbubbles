@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from app.forms import CustomUserCreationForm
-from app.models import Post, Like, Repost, Save, Report, CustomUser
+from app.models import Post, Like, Repost, Save, Report, CustomUser, Follow
 from itertools import chain
 
 @login_required(login_url='login')
@@ -58,7 +58,6 @@ def delete(request, post_id):
     post = get_object_or_404(Post, id = post_id)
     if request.user == post.author:
         post.delete()
-    # print('\033[0;31mO post "'+post.content+'" foi apagado\033[m')
     return redirect('home')
 
 @login_required(login_url='login')
@@ -124,7 +123,6 @@ def report(request, post_id):
     return redirect('home')
 
 def profile(request, username):
-    print(request.user)
     user = get_object_or_404(CustomUser, username = username)
     try:
         posts = Post.objects.filter(author = user)
@@ -147,8 +145,55 @@ def profile(request, username):
         reverse=True
     )
 
-    context = {'user': user, 'all_posts': all_posts}
+    if request.user.is_authenticated:
+        follow = None
+        try:
+            follow = Follow.objects.filter(follower = request.user, followed = user)
+        except Follow.DoesNotExist:
+            follow = None
 
-    # VERIFICAR NESSA ROTA SE O USUÁRIO TA AUTENTICADO
-    # E SE TIVER, MANDAR PRA TEMPLATE FULLPROFILE
-    return render(request, 'publicprofile.html', context)
+        try:
+            likes = Like.objects.filter(author = user)
+        except Like.DoesNotExist:
+            like = []
+
+        try:
+            saved = Save.objects.filter(author = user)
+        except Save.DoesNotExist:
+            saved = []
+
+        context = {
+            'user': user,
+            'all_posts': all_posts,
+            'likes': likes,
+            'saved': saved,
+            'follow': follow
+        }
+
+        return render(request, 'fullprofile.html', context)
+    else:
+        context = {'user': user, 'all_posts': all_posts}
+        return render(request, 'publicprofile.html', context)
+
+@login_required(login_url='login')
+def follow(request, username):
+    user = get_object_or_404(CustomUser, username = username)
+    
+    follow = Follow.objects.filter(follower = request.user, followed = user)
+    print(follow)
+    if follow:
+        follow.delete()
+        request.user.following -= 1
+        user.followers -= 1
+    else:
+        Follow.objects.create(
+            follower = request.user, 
+            followed = user
+        )
+        request.user.following += 1
+        user.followers += 1
+
+    request.user.save()
+    user.save()
+
+    return redirect('profile', username = user.username)

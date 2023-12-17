@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     bio = models.CharField(max_length=128, null=True)
+    following = models.IntegerField(default=0)
+    followers = models.IntegerField(default=0)
     birthdate = models.DateField("Data de nascimento", null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     suspended_at = models.DateTimeField(null=True)

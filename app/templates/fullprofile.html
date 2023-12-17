@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil de {{ user.username }} no Sbubbles{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <p><a href="{% url 'logout' %}">Sair</a></p>
+
+  {% if user.first_name or user.last_name %}    
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+  {% endif %}
+  <h2>@{{ user.username }}</h2>
+
+  {% if user.bio %}
+    <p>{{ user.bio }}</p>
+  {% endif %}
+
+  <p>
+    <span>{{ user.following }} seguindo</span>
+    <span> | </span>
+    <span>{{ user.followers }} seguid{{ user.followers|pluralize:"or,ores" }}</span>
+    <span> | </span>
+    {% if request.user == user %}
+      <a href="#">Editar perfil</a>
+    {% else %}
+      {% if follow %}
+        <a href="{% url 'follow' username=user.username %}">Deixar de seguir</a>
+      {% else %}
+        <a href="{% url 'follow' username=user.username %}">Seguir</a>
+      {% endif %}
+    {% endif %}
+  </p>
+
+  <p>
+    <a href="{% url 'home' %}">Página inicial</a>
+    <span> | </span>
+    <a href="{% url 'likes' username=user.username %}">Curtidas</a>
+    {% if request.user == user %}
+      <span> | </span>
+      <a href="{% url 'saved' %}">Itens salvos</a>
+    {% endif %}
+  <p>
+
+  {% include 'newpostform.html' %} 
+
+  {% for p in all_posts %}
+    {% include 'fullpost.html' %} 
+  {% endfor %}
+
+{% else %}
+  <p>Faça login para visualizar essa página</p>
+  <a href="{% url 'login' %}">Entrar</a>
+{% endif %}
+{% endblock %}
