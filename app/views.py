@@ -8,10 +8,21 @@ from itertools import chain
 
 @login_required(login_url='login')
 def home(request):
-    posts = None
+    posts = []
+    followed_users = []
+
+    try:
+        following = Follow.objects.all()
+    except Follow.DoesNotExist:
+        following = []
+
+    for f in following:
+        followed_users.append(f.followed)
+    followed_users.append(request.user)
 
     if request.method == 'GET':
-        posts = Post.objects.order_by('-created_at')
+        posts = Post.objects.filter(author__in = followed_users).order_by('-created_at')
+
         for post in posts:
             try:
                 like = Like.objects.get(author = request.user, post = post)
