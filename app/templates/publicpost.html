@@ -1,0 +1,8 @@
+<div style="border:1px solid #000; margin-top: 10px;">
+    <a href="{% url 'profile' username=user.username %}">
+      <i>{{ p.author.username }}:</i>
+    </a>
+    <p>{{ p.content }}</p>
+    <p>{{ p.likes }} curtida{{ p.likes|pluralize }}</p>
+    <span>{% load humanize %}{{ p.created_at|naturaltime }}</span>
+</div>

@@ -66,6 +66,7 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 
 ### 3.1. Fluxo principal
 
+- `/signup`, para a tela de cadastro;
 - `/login`, para a tela de login;
 - `/`, para a página principal;
 
@@ -76,7 +77,41 @@ A partir da URL `192.168.56.101:8000`, os seguintes caminhos podem ser acessados
 - `/reset/<uidb64>/<token>`, como destino do link para redefinição enviado via e-mail;
 - `/reset/done`, para a mensagem de confirmação de alteração de senha;
 
-### 3.3. Painel administrativo
+### 3.3. Publicações
+
+- `/post/create`, para criar um post;
+- `/post/<post_id>/delete`, para apagar um post;
+- `/post/<post_id>/like`, para curtir um post;
+- `/post/<post_id>/repost`, para republicar um post;
+- `/post/<post_id>/save`, para salvar um post;
+- `/post/<post_id>/report`, para denunciar um post;
+- `/collection`, para visualizar os próprios posts salvos.
+
+Observações:
+
+- A rota de visualização de posts é a rota raiz;
+- Todas as rotas acima dependem da autenticação do usuário.
+
+### 3.4. Usuário 
+
+- `user/<username>`, para visualizar o perfil de um usuário;
+- `user/<username>/follow`, para seguir um usuário;
+- `user/<username>/likes`, para visualizar as curtidas de um usuário;
+- `user/saved`, para visualizar os próprios posts salvos;
+- `editprofile`, para editar o perfil do usuário logado.
+
+Observações:
+
+- A rota de visualização de perfil pode retornar dois templates diferentes: um para usuários autenticados e outro para usuários anônimos;
+- As rotas de follow e visualização de likes de usuários alheios são disponíveis apenas para usuários autenticados;
+- A rota de visualização de posts salvos só mostrará os posts do usuário autenticado.
+
+### 3.5. Notificações
+
+- `/notifications`, para visualizar a página de notificações;
+- `/notifications/<notif_id>/mark_as_checked`, para processar a ação de marcar como lida.
+
+### 3.6. Painel administrativo
 
 - `/admin`, para o painel administrativo;
 

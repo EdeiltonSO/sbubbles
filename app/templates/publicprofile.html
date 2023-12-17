@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil de {{ user.username }} no Sbubbles{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'login' %}">Entrar no Sbubbles</a></p>
+
+  {% if user.first_name or user.last_name %}    
+    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+  {% endif %}
+  <h2>@{{ user.username }}</h2>
+
+  {% if user.bio %}
+    <p>{{ user.bio }}</p>
+  {% endif %}
+
+  <p>
+    <span>{{ user.following }} seguindo</span>
+    <span> | </span>
+    <span>{{ user.followers }} seguid{{ user.followers|pluralize:"or,ores" }}</span>
+  </p>
+
+  {% for p in all_posts %}
+    {% include 'publicpost.html' %} 
+  {% endfor %}
+{% endblock %}

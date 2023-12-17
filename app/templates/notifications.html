@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Timeline | Sbubbles{% endblock %}
+{% block title %}Notificações | Sbubbles{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
@@ -8,7 +8,7 @@
   <h1>
     Oi, <a href="{% url 'profile' username=user.username %}">{{ user.username }}</a>!
   </h1>
-  <h3>Confira o que rolou enquanto você esteve fora</h3>
+  <h3>Aqui estão algumas novidades para você</h3>
 
   <p>
     <a href="{% url 'home' %}">Página inicial</a>
@@ -16,10 +16,8 @@
     <a href="{% url 'notifications' %}">Notificações</a>
   <p>
 
-  {% include 'newpostform.html' %} 
-
-  {% for p in posts %}
-    {% include 'fullpost.html' %} 
+  {% for n in notifications %}
+    {% include 'notif.html' %} 
   {% endfor %}
 
 {% else %}

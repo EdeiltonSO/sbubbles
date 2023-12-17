@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'create' %}" style="display: flex; align-items: flex-start; gap: 10px;">
+    {% csrf_token %}
+    <textarea maxlength="100" name="content" placeholder="bom dia patrao"></textarea>
+    <button type="submit">Postar</button>
+</form>

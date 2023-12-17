@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil de {{ user.username }} no Sbubbles{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <p><a href="{% url 'logout' %}">Sair</a></p>
+
+  {% include 'headerprofile.html' %} 
+
+  {% for p in all_posts %}
+    {% include 'fullpost.html' %} 
+  {% endfor %}
+
+{% else %}
+  <p>Faça login para visualizar essa página</p>
+  <a href="{% url 'login' %}">Entrar</a>
+{% endif %}
+{% endblock %}

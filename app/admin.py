@@ -4,7 +4,7 @@ from .models import Post, Like, Repost, Save, Follow, Report, Notification, Cust
 
 class CustomUserAdmin(UserAdmin):
     list_display = (
-        'id', 'email', 'username', 'password', 'first_name', 'last_name', 'bio', 'birthdate', 'created_at', 'suspended_at', 'is_staff'
+        'id', 'email', 'username', 'password', 'first_name', 'last_name', 'followers', 'following', 'bio', 'birthdate', 'created_at', 'suspended_at', 'is_staff'
         )
 
 admin.site.register(CustomUser, CustomUserAdmin)
