@@ -197,3 +197,12 @@ def follow(request, username):
     user.save()
 
     return redirect('profile', username = user.username)
+    
+@login_required(login_url='login')
+def likes(request, user):
+    print(user)
+
+@login_required(login_url='login')
+def saved(request, user):
+    if request.user.is_authenticated:
+        print(user)

@@ -21,4 +21,6 @@ urlpatterns = [
 
     path('user/<username>', profile, name='profile'),
     path('user/<username>/follow', follow, name='follow'),
+    path('user/<username>/likes', likes, name='likes'),
+    path('user/saved', saved, name='saved'),
 ]
