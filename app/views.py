@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django.http import Http404
 from app.forms import CustomUserCreationForm
 from app.models import Post, Like, Repost, Save, Report, CustomUser, Follow, Notification
 from itertools import chain
@@ -84,15 +85,15 @@ def like(request, post_id):
             post = post,
         )
         post.likes += 1
-        Notification.objects.create(
-            sender = request.user,
-            action_type = 'L',
-            action_link = '',
-            message = str(request.user.username)+' curtiu seu post "'+str(post.content)+'"',
-            post_owner = post.author,
-        )
+        if request.user != post.author:
+            Notification.objects.create(
+                sender = request.user,
+                action_type = 'L',
+                action_link = '',
+                message = str(request.user.username)+' curtiu seu post "'+str(post.content)+'"',
+                post_owner = post.author,
+            )
 
-    
     post.save()
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
@@ -107,13 +108,14 @@ def repost(request, post_id):
             author = request.user,
             post = post,
         )
-        Notification.objects.create(
-            sender = request.user,
-            action_type = 'R',
-            action_link = '',
-            message = str(request.user.username)+' repostou "'+str(post.content)+'"',
-            post_owner = post.author,
-        )
+        if request.user != post.author:
+            Notification.objects.create(
+                sender = request.user,
+                action_type = 'R',
+                action_link = '',
+                message = str(request.user.username)+' repostou "'+str(post.content)+'"',
+                post_owner = post.author,
+            )
 
     
     return redirect(request.META.get('HTTP_REFERER', 'home'))
@@ -242,13 +244,14 @@ def follow(request, username):
         )
         request.user.following += 1
         user.followers += 1
-        Notification.objects.create(
-            sender = request.user,
-            action_type = 'F',
-            action_link = '',
-            message = str(request.user.username)+' começou a seguir você!',
-            post_owner = user,
-        )
+        if request.user != user:
+            Notification.objects.create(
+                sender = request.user,
+                action_type = 'F',
+                action_link = '',
+                message = str(request.user.username)+' começou a seguir você!',
+                post_owner = user,
+            )
 
     request.user.save()
     user.save()
@@ -336,3 +339,19 @@ def collection(request):
 
     return render(request, 'collection.html', { 'posts': posts })
 
+@login_required(login_url='login')
+def notifications(request):
+    notifications = Notification.objects.filter(post_owner = request.user).order_by('-created_at')
+    return render(request, 'notifications.html', { 'notifications': notifications })
+
+@login_required(login_url='login')
+def mark_as_checked(request, notif_id):
+    try:
+        notif = Notification.objects.get(pk=notif_id)
+        notif.was_viewed = True
+        notif.save()
+    except Notification.DoesNotExist:
+        raise Http404("Notificação não encontrada!")
+    
+    notifications = Notification.objects.filter(post_owner = request.user).order_by('-created_at')
+    return render(request, 'notifications.html', { 'notifications': notifications })

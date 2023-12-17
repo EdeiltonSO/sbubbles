@@ -1,0 +1,12 @@
+{% if n.was_viewed %}
+<div style="border:1px solid #000; margin-top: 10px;">
+{% else %}
+<div style="background:rgb(255, 223, 107); margin-top: 10px;">
+{% endif %}
+    <p>{{ n.message }}</p>
+    <p>{% load humanize %}{{ n.created_at|naturaltime }}</p>
+
+    {% if not n.was_viewed %}
+      <a href="{% url 'mark_as_checked' notif_id=n.id %}">marcar como lida</a>
+    {% endif %}
+</div>

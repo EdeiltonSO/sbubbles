@@ -105,7 +105,12 @@ Observações:
 - As rotas de follow e visualização de likes de usuários alheios são disponíveis apenas para usuários autenticados;
 - A rota de visualização de posts salvos só mostrará os posts do usuário autenticado.
 
-### 3.5. Painel administrativo
+### 3.5. Notificações
+
+- `/notifications`, para visualizar a página de notificações;
+- `/notifications/<notif_id>/mark_as_checked`, para processar a ação de marcar como lida.
+
+### 3.6. Painel administrativo
 
 - `/admin`, para o painel administrativo;
 
