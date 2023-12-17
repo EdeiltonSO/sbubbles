@@ -98,7 +98,7 @@ Observações:
 - `user/<username>/follow`, para seguir um usuário;
 - `user/<username>/likes`, para visualizar as curtidas de um usuário;
 - `user/saved`, para visualizar os próprios posts salvos.
-]
+
 Observações:
 
 - A rota de visualização de perfil pode retornar dois templates diferentes: um para usuários autenticados e outro para usuários anônimos;
