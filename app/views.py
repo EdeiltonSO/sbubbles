@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from app.forms import CustomUserCreationForm
-from app.models import Post, Like, Repost, Save, Report, CustomUser, Follow
+from app.models import Post, Like, Repost, Save, Report, CustomUser, Follow, Notification
 from itertools import chain
 
 @login_required(login_url='login')
@@ -12,7 +12,7 @@ def home(request):
     followed_users = []
 
     try:
-        following = Follow.objects.all()
+        following = Follow.objects.filter(follower = request.user)
     except Follow.DoesNotExist:
         following = []
 
@@ -69,7 +69,7 @@ def delete(request, post_id):
     post = get_object_or_404(Post, id = post_id)
     if request.user == post.author:
         post.delete()
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 @login_required(login_url='login')
 def like(request, post_id):
@@ -84,9 +84,17 @@ def like(request, post_id):
             post = post,
         )
         post.likes += 1
+        Notification.objects.create(
+            sender = request.user,
+            action_type = 'L',
+            action_link = '',
+            message = str(request.user.username)+' curtiu seu post "'+str(post.content)+'"',
+            post_owner = post.author,
+        )
+
     
     post.save()
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 @login_required(login_url='login')
 def repost(request, post_id):
@@ -99,8 +107,16 @@ def repost(request, post_id):
             author = request.user,
             post = post,
         )
+        Notification.objects.create(
+            sender = request.user,
+            action_type = 'R',
+            action_link = '',
+            message = str(request.user.username)+' repostou "'+str(post.content)+'"',
+            post_owner = post.author,
+        )
+
     
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 @login_required(login_url='login')
 def save(request, post_id):
@@ -114,7 +130,7 @@ def save(request, post_id):
             post = post,
         )
     
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 @login_required(login_url='login')
 def report(request, post_id):
@@ -131,7 +147,7 @@ def report(request, post_id):
         post.reports += 1
     
     post.save()
-    return redirect('home')
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 def profile(request, username):
     user = get_object_or_404(CustomUser, username = username)
@@ -157,6 +173,29 @@ def profile(request, username):
     )
 
     if request.user.is_authenticated:
+        for post in posts:
+            try:
+                like = Like.objects.get(author = request.user, post = post)
+                post.liked_by_authenticated_user = True
+            except Like.DoesNotExist:
+                post.liked_by_authenticated_user = False
+            try:
+                repost = Repost.objects.get(author = request.user, post = post)
+                post.reposted_by_authenticated_user = True
+            except Repost.DoesNotExist:
+                post.reposted_by_authenticated_user = False
+            try:
+                save = Save.objects.get(author = request.user, post = post)
+                post.saved_by_authenticated_user = True
+            except Save.DoesNotExist:
+                post.saved_by_authenticated_user = False
+            try:
+                report = Report.objects.get(whistleblower = request.user, reported_post = post)
+                post.reported_by_authenticated_user = True
+            except Report.DoesNotExist:
+                post.reported_by_authenticated_user = False
+
+
         follow = None
         try:
             follow = Follow.objects.filter(follower = request.user, followed = user)
@@ -203,6 +242,13 @@ def follow(request, username):
         )
         request.user.following += 1
         user.followers += 1
+        Notification.objects.create(
+            sender = request.user,
+            action_type = 'F',
+            action_link = '',
+            message = str(request.user.username)+' começou a seguir você!',
+            post_owner = user,
+        )
 
     request.user.save()
     user.save()

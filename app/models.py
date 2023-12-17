@@ -51,12 +51,12 @@ class Report(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Notification(models.Model):
-    ACTION_CHOICES = (("L", "Like"), ("R", "Repost"), ("P", "Post"))
+    ACTION_CHOICES = (("F", "Follow"), ("L", "Like"), ("R", "Repost"), ("P", "Reply"))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, related_name='sender')
     action_type = models.CharField(max_length=1, choices=ACTION_CHOICES, blank=False, null=False)
     action_link = models.CharField(max_length=128, null=False)
-    target_post = models.ForeignKey(Post, on_delete=models.CASCADE, null=False)
     post_owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, related_name='owner')
+    message = models.CharField(max_length=128, null=False)
     was_viewed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
