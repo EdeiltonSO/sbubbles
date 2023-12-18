@@ -3,10 +3,23 @@
 {% block title %}Crie uma conta no Sbubbles{% endblock %}
 
 {% block content %}
-  <h2>Criar uma conta</h2>
-  <form method="post">
+
+<style> 
+  p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+label{
+  display: none;
+}
+</style>
+  <h2 class="sub_text">Criar uma conta</h2>
+  <form class="login_inputs" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Criar conta</button>
+    <button class="botao btn_principal" type="submit">Criar conta</button>
   </form>
 {% endblock %}

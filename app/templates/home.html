@@ -4,10 +4,13 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  <p><a href="{% url 'logout' %}">Sair</a></p>
-  <h1>
-    Oi, <a href="{% url 'profile' username=user.username %}">{{ user.username }}</a>!
-  </h1>
+
+<div class="head_home"> 
+  <h3>
+    Oi, <a class="sub_text" href="{% url 'profile' username=user.username %}">{{ user.username }}</a>!
+</h3>
+  <p><a class="botao_sair" href="{% url 'logout' %}">Sair</a></p>
+</div>
   <h3>Confira o que rolou enquanto você esteve fora</h3>
 
   <p>
@@ -15,13 +18,13 @@
     <span> | </span>
     <a href="{% url 'notifications' %}">Notificações</a>
   <p>
-
-  {% include 'newpostform.html' %} 
-
+ 
+  <div class="post_creat"> {% include 'newpostform.html' %} 
+  </div>
+ 
   {% for p in posts %}
     {% include 'fullpost.html' %} 
   {% endfor %}
-
 {% else %}
   <p>Faça login para visualizar essa página</p>
   <a href="{% url 'login' %}">Entrar</a>

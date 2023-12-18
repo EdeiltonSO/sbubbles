@@ -1,12 +1,16 @@
 {% if user.first_name or user.last_name %}    
   <h1>{{ user.first_name }} {{ user.last_name }}</h1>
 {% endif %}
-<h2>@{{ user.username }}</h2>
+
+
+<div class="head_home"> 
+  <h2>@{{ user.username }}</h2>
+  <p><a class="botao_sair" href="{% url 'logout' %}">Sair</a></p>
+</div>
 
 {% if user.bio %}
   <p>{{ user.bio }}</p>
 {% endif %}
-
 <p>
   <span>{{ user.following }} seguindo</span>
   <span> | </span>

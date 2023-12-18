@@ -1,0 +1,232 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-color: #FAFBFF; 
+}
+
+.titulo{
+    display: flex;
+    margin: 55px auto 0;
+    align-items: center;
+    width: 400px;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+   
+}
+
+.icone_s {   
+    width: 60px;
+    height: 60px;
+    background-color: #0760FA;
+    color: white;
+    text-align: center;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0.5, 0.5);
+    border-radius: 15px;
+    border: 1px solid black;
+}
+
+.bubbles{
+    padding-left: 20px;
+    font-style: verdana ;
+    text-align: left;
+    line-height: 60px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+.login{
+    margin-top: 55px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: semibold;
+}
+
+/* <!----------------------------------------------- Até aqui BASE-------------------------------------------------> */
+.login_inputs{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+ 
+    align-items: center;
+    width: 400px;
+}
+
+.botoes_login{
+    
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+   
+
+}
+
+.botao, .botao a{
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    min-width: 130px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.btn_principal{
+    background-color: #0760FA;
+    color: #FAFBFF;
+    box-shadow: 0px 8px 4px 0px rgba(0,0,0.3,0.3);
+    border: none; 
+}
+.btn_secundario{
+    background-color: #EEF5FD;
+    color: #0760FA;
+    box-shadow: 0px 8px 4px 0px rgba(0,0,0.3,0.3);
+}
+.senha{
+   
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+   
+    color: #9EA1A5;
+}
+
+form {
+    width: 100%;
+    
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select {
+    width: 325px;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0.3,0.3);
+    border: none;
+}
+
+input:focus {
+    border: 3px solid  #0760FA ; /* Altere a cor da borda para a cor desejada */
+    outline: none; /* Remove a borda padrão do navegador (pode não ser desejado em alguns casos) */
+    /* Adicione outros estilos conforme necessário */
+}
+
+ /*<!----------------------------------------------- Até aqui LOGIN-------------------------------------------------> 
+
+
+/*<!----------------------------------------------- A PARTIR AQUI SUBTEXTO-------------------------------------------------> 
+/* ------------------------------------------------------TIMELINE------------------------------------------------- */
+
+/* --------------------------------------------------------POSTS--------------------------------------------- */
+
+.sub_text{
+    
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #1A1A1A;
+    font-size: 16px;
+}
+.text_post{
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    color: #1A1A1A;
+    font-size: 15px;
+    
+}
+
+.post_status{
+    margin: 0;
+    font-family: 'Roboto Slab', serif;
+    color: #9EA1A5;
+}
+
+.posts_actions{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: #191a1b;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.deslike {
+    color: #000000;
+}
+
+.like {
+    color: red;
+}
+
+.salvo {
+    color: #0760FA;
+}
+
+.post_structure{
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0.3,0.3);
+    border-radius: 10px;
+}
+
+.username{
+    text-decoration: none;
+    color: #9EA1A5;
+    font-weight: bold;
+}
+
+.post_creat textarea{
+    display: block;
+    width: 400px;
+    height: 65px;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0.3,0.3);
+    border-radius: 10px;
+}
+
+.post_creat button{
+    display: block;
+}
+
+.botao_sair{
+    background-color: #EEF5FD;
+    color: #0760FA;
+    box-shadow: 0px 8px 4px 0px rgba(0,0,0.3,0.3);
+    font-weight: bold;
+    min-width: 70px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    text-align: center;
+    padding-right:10px;
+    max-width: 85px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.head_home{
+    display: flex;
+    justify-content:space-between;
+}
+
+/* --------------------------------------------------------POSTS--------------------------------------------- */
+

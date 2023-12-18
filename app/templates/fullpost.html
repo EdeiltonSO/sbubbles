@@ -1,44 +1,46 @@
-<div style="border:1px solid #000; margin-top: 10px;">
+<div class="post_structure" >
   {% if p.reported_by_authenticated_user %}
     <p>[post denunciado]</p>
   {% else %} <!-- DENÚNCIA -->
-    <a href="{% url 'profile' username=p.author.username %}">
+    <a class="username" href="{% url 'profile' username=p.author.username %}">
       <i>{{ p.author.username }}:</i>
     </a>
-    <p>{{ p.content }}</p>
-    <p>{{ p.likes }} curtida{{ p.likes|pluralize }}</p>
-    <p>{% load humanize %}{{ p.created_at|naturaltime }}</p>
 
+    <p class="text_post">{{ p.content }}</p>  
+  <div>
+    <p class="post_status">{{ p.likes }} curtida{{ p.likes|pluralize }}</p>
+    <p class="post_status">{% load humanize %}{{ p.created_at|naturaltime }}</p>
+  </div>
     <!-- DAR LIKE -->
     {% if p.liked_by_authenticated_user %}
-      <a href="{% url 'like' post_id=p.id %}">descurtir</a>
+      <a class="posts_actions" href="{% url 'like' post_id=p.id %}"><i class="fa fa-heart like"></i></a>
     {% else %}
-      <a href="{% url 'like' post_id=p.id %}">curtir</a>
+      <a class="posts_actions" href="{% url 'like' post_id=p.id %}"><i class="fa fa-heart-o deslike"></i></a>
     {% endif %}
 
     <span> | </span>
 
     <!-- REPOSTAR -->
     {% if p.reposted_by_authenticated_user %}
-      <a href="{% url 'repost' post_id=p.id %}">desfazer repost</a>
+      <a class="posts_actions" href="{% url 'repost' post_id=p.id %}">desfazer repost</a>
     {% else %}
-      <a href="{% url 'repost' post_id=p.id %}">repostar</a>
+      <a class="posts_actions" href="{% url 'repost' post_id=p.id %}"><i class="fa fa-refresh"></i></a>
     {% endif %}
 
     <span> | </span>
 
     <!-- SALVAR POST -->
     {% if p.saved_by_authenticated_user %}
-      <a href="{% url 'save' post_id=p.id %}">remover dos salvos</a>
+      <a href="{% url 'save' post_id=p.id %}"><i class="fa fa-bookmark salvo"></i></a>
     {% else %}
-      <a href="{% url 'save' post_id=p.id %}">salvar</a>
+      <a class="posts_actions" href="{% url 'save' post_id=p.id %}"><i class="fa fa-bookmark-o"></i></a>
     {% endif %}
 
     <span> | </span>
     
     <!-- APAGAR O PRÓPRIO POST -->
     {% if request.user == p.author %}
-      <a href="{% url 'delete' post_id=p.id %}">apagar</a>
+      <a class="posts_actions" href="{% url 'delete' post_id=p.id %}"><i class="fa fa-trash-o"></i></a>
     {% endif %}
 
   {% endif %} <!-- DENÚNCIA -->

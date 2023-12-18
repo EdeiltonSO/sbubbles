@@ -4,12 +4,23 @@
 {% block title %}Sbubbles | Login{% endblock %}
 
 {% block content %}
-<h2>Fazer login</h2>
-<form method="post">
+<h2 class="login">Fazer login</h2>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Roboto+Slab:wght@300;400&display=swap" rel="stylesheet">
+<form class="login_inputs" method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Entrar</button>
-  <p><a href="{% url 'signup' %}">Criar conta</a></p>
-  <p><a href="{% url 'password_reset' %}">Esqueci minha senha</a></p>
+
+  <div class="botoes_login">
+
+    <p class="botao"> <a class="btn_secundario" href="{% url 'signup' %}">Criar conta </a></p>
+    <button class="botao btn_principal" type="submit">Entrar</button>
+   </div>
+  
+  <p><a class="senha" href="{% url 'password_reset' %}">Esqueci minha senha</a></p>
 </form>
+
 {% endblock %}
+

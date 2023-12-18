@@ -4,10 +4,10 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  <p><a href="{% url 'logout' %}">Sair</a></p>
+  
 
   {% include 'headerprofile.html' %} 
-
+  
   {% for p in all_posts %}
     {% include 'fullpost.html' %} 
   {% endfor %}
