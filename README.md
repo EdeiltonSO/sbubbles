@@ -55,7 +55,7 @@ As instruções a seguir ainda podem estar incompletas.
 
 (note que agora você está em vagrant@sd)
 
-- Execute `cd /vagrant/web-folder/enquetes-django/`;
+- Execute `cd /vagrant/web-folder/sbubbles/`;
 - Execute `python manage.py runserver 0:8000`;
 - Acesse `192.168.56.101:8000/`.
 
